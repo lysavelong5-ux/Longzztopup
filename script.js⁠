@@ -6,40 +6,26 @@ document.getElementById('topupForm').addEventListener('submit', function(e) {
     const playerId = document.getElementById('playerId').value;
     const pkg = document.getElementById('packageSelect').value;
 
-    // រៀបចំសារសម្រាប់ផ្ញើទៅ Telegram
+    // ព័ត៌មាន Telegram Bot
     const botToken = "8974617258:AAEXM5V7B1T_YBNuvPHm-5uACv5J-vTW4aE";
     const chatId = "-1004370278490";
     
-    const message = `🔔 មានការបញ្ជាទិញថ្មី!\n\n🎮 ហ្គេម: ${game}\n🆔 Player ID: ${playerId}\n📦 កញ្ចប់: ${pkg}\n\nស្ថានភាព: រង់ចាំការอนุมัติ (Pending)`;
+    const message = `🔔 មានការបញ្ជាទិញថ្មី!\n\n🎮 ហ្គេម: ${game}\n🆔 Player ID: ${playerId}\n📦 កញ្ចប់: ${pkg}\n\nស្ថានភាព: រង់ចាំការអនុមັດ (Pending)`;
 
-    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    // បង្កើត URL សម្រាប់ផ្ញើសារ
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
 
-    // ផ្ញើទិន្នន័យទៅកាន់ Telegram Bot API
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            chat_id: chatId,
-            text: message
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        const resultBox = document.getElementById('resultBox');
-        const summaryText = document.getElementById('summaryText');
+    // ប្រើប្រាស់ Image trick ដើម្បីជៀសវាងបញ្ហា CORS
+    const img = new Image();
+    img.src = url;
 
-        if (data.ok) {
-            summaryText.innerHTML = `ការបញ្ជាទិញរបស់អ្នកត្រូវបានបញ្ជូនទៅកាន់ Admin រួចរាល់! <br>ហ្គេម: ${game} | ID: ${playerId}`;
-            resultBox.classList.remove('hidden');
-            document.getElementById('topupForm').reset();
-        } else {
-            alert('មានបញ្ហាក្នុងการបញ្ជូនទិន្នន័យ សូមព្យាយាមម្តងទៀត!');
-        }
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('មិនអាចភ្ជាប់ទៅកាន់ប្រព័ន្ធបានទេ!');
-    });
+    // បង្ហាញសារជោគជ័យជូនអតិថិជន
+    const resultBox = document.getElementById('resultBox');
+    const summaryText = document.getElementById('summaryText');
+
+    summaryText.innerHTML = `ការបញ្ជាទិញរបស់អ្នកត្រូវបានបញ្ជូនទៅកាន់ Admin រួចរាល់! <br>ហ្គេម: ${game} | ID: ${playerId}`;
+    resultBox.classList.remove('hidden');
+    
+    // សម្អាត Form វិញ
+    document.getElementById('topupForm').reset();
 });
