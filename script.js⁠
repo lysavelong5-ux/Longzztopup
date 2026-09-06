@@ -1,19 +1,45 @@
 document.getElementById('topupForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
-    // ดึงតម្លៃពី Form
+    // ទទូលយកតម្លៃពី Form
     const game = document.getElementById('gameSelect').value;
     const playerId = document.getElementById('playerId').value;
     const pkg = document.getElementById('packageSelect').value;
 
-    // បង្ហាញលទ្ធផល
-    const resultBox = document.getElementById('resultBox');
-    const summaryText = document.getElementById('summaryText');
-
-    summaryText.innerHTML = `ហ្គេម: ${game} <br> ID: ${playerId} <br> កញ្ចប់: ${pkg}`;
+    // រៀបចំសារសម្រាប់ផ្ញើទៅ Telegram
+    const botToken = "8974617258:AAEXM5V7B1T_YBNuvPHm-5uACv5J-vTW4aE";
+    const chatId = "-1004370278490";
     
-    resultBox.classList.remove('hidden');
+    const message = `🔔 មានការបញ្ជាទិញថ្មី!\n\n🎮 ហ្គេម: ${game}\n🆔 Player ID: ${playerId}\n📦 កញ្ចប់: ${pkg}\n\nស្ថានភាព: រង់ចាំការอนุมัติ (Pending)`;
 
-    // សម្អាត Form វិញក្រោយពេលបញ្ជូន
-    document.getElementById('topupForm').reset();
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+
+    // ផ្ញើទិន្នន័យទៅកាន់ Telegram Bot API
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            chat_id: chatId,
+            text: message
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const resultBox = document.getElementById('resultBox');
+        const summaryText = document.getElementById('summaryText');
+
+        if (data.ok) {
+            summaryText.innerHTML = `ការបញ្ជាទិញរបស់អ្នកត្រូវបានបញ្ជូនទៅកាន់ Admin រួចរាល់! <br>ហ្គេម: ${game} | ID: ${playerId}`;
+            resultBox.classList.remove('hidden');
+            document.getElementById('topupForm').reset();
+        } else {
+            alert('មានបញ្ហាក្នុងการបញ្ជូនទិន្នន័យ សូមព្យាយាមម្តងទៀត!');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('មិនអាចភ្ជាប់ទៅកាន់ប្រព័ន្ធបានទេ!');
+    });
 });
