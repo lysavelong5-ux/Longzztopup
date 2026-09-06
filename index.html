@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Longzz TopUp - Free Fire & Mobile Legends</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Longzz TopUp ⚡</h1>
+            <p>បំពេញពេជ្រហ្គេមរហ័ស និងទុកចិត្តបាន</p>
+        </header>
+
+        <!-- Form Section -->
+        <form id="topupForm">
+            <!-- Select Game -->
+            <div class="form-group">
+                <label for="gameSelect">ជ្រើសរើសហ្គេម (Select Game)</label>
+                <select id="gameSelect" required>
+                    <option value="" disabled selected>-- ជ្រើសរើសហ្គេម --</option>
+                    <option value="Free Fire">Free Fire</option>
+                    <option value="Mobile Legends">Mobile Legends</option>
+                </select>
+            </div>
+
+            <!-- Player ID -->
+            <div class="form-group">
+                <label for="playerId">អត្តសញ្ញាណអ្នកលេង (Player ID)</label>
+                <input type="text" id="playerId" placeholder="បញ្ចូល Player ID របស់អ្នកទីនេះ" required>
+            </div>
+
+            <!-- Select Package -->
+            <div class="form-group">
+                <label for="packageSelect">ជ្រើសរើសកញ្ចប់ (Select Package)</label>
+                <select id="packageSelect" required>
+                    <option value="" disabled selected>-- ជ្រើសរើសកញ្ចប់ពេជ្រ --</option>
+                    <option value="100 Diamonds - $1.00">100 Diamonds - $1.00</option>
+                    <option value="310 Diamonds - $3.00">310 Diamonds - $3.00</option>
+                    <option value="520 Diamonds - $5.00">520 Diamonds - $5.00</option>
+                    <option value="1060 Diamonds - $10.00">1060 Diamonds - $10.00</option>
+                </select>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn-submit">បញ្ជាទិញឥឡូវនេះ (Order Now)</button>
+        </form>
+
+        <!-- Success Message Modal/Box -->
+        <div id="resultBox" class="hidden">
+            <h3>ការបញ្ជាទិញជោគជ័យ! (Success!)</h3>
+            <p id="summaryText"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
