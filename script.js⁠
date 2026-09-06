@@ -1,0 +1,19 @@
+document.getElementById('topupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // ดึงតម្លៃពី Form
+    const game = document.getElementById('gameSelect').value;
+    const playerId = document.getElementById('playerId').value;
+    const pkg = document.getElementById('packageSelect').value;
+
+    // បង្ហាញលទ្ធផល
+    const resultBox = document.getElementById('resultBox');
+    const summaryText = document.getElementById('summaryText');
+
+    summaryText.innerHTML = `ហ្គេម: ${game} <br> ID: ${playerId} <br> កញ្ចប់: ${pkg}`;
+    
+    resultBox.classList.remove('hidden');
+
+    // សម្អាត Form វិញក្រោយពេលបញ្ជូន
+    document.getElementById('topupForm').reset();
+});
